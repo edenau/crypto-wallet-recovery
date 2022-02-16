@@ -1,4 +1,4 @@
-from utils import phrase2ethaddr
+from utils import get_ethereum_address
 
 def txt2list(fname):
     with open(fname, 'r') as f:
@@ -21,7 +21,7 @@ def main(phrase, extra_word, derivation_path, addr, missing_notation='?', verbos
         phrase_list[pos_missing_word] = guess_word
         phrase_printable = ' '.join(phrase_list)
 
-        if phrase2ethaddr(phrase_printable, extra_word, derivation_path).lower() == addr.lower(): # Ethereum addr is case-insensitive
+        if get_ethereum_address(phrase_printable, extra_word, derivation_path=derivation_path).lower() == addr.lower(): # Ethereum addr is case-insensitive
             if verbose:
                 print('Found correct phrase:')
             print(phrase_printable)
@@ -36,5 +36,5 @@ if __name__ == '__main__':
     extra_word = '' # empty string if no extra word
     derivation_path = "m/44'/60'/0'/0/0" # the most common derivation path for generating Ethereum addresses
     addr = '0x426D485C3116Ee7941aB83133D14cA1176Ec99b7'
-    
+
     main(phrase, extra_word, derivation_path, addr)
